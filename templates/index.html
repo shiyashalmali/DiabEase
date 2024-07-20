@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Diabetes Prediction</title>
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url('https://images.moneycontrol.com/static-mcnews/2023/04/How-to-manage-diabetes-and-blood-sugar-levels-2.jpg?impolicy=website&width=1600&height=900') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 1em;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      max-width: 380px;
+      width: 80%;
+
+      margin-right: 90px;
+}
+
+    .container h1 {
+      margin-bottom: 0.5em;
+      color: #8f0f0f;
+    }
+
+    .container h2 {
+      margin-bottom: 0.5em;
+      color: #333;
+    }
+
+    .container input {
+      width: 90%;
+      margin: 0.5em auto;
+      padding: 0.45em;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+
+    .container button {
+      padding: 0.70em;
+      background: #6b0808;
+      border: none;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 60%;
+      font-size: 1em;
+      margin-top: 1em;
+      transition: background 0.3s ease;
+    }
+
+    .container button:hover {
+      background: #2980b9;
+    }
+
+    .container .result {
+      margin-top: 2em;
+      font-size: 1.2em;
+      color: #2ecc71;
+    }
+
+    .advice-container {
+      margin-left: 3em;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 3em;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      max-width: 350px;
+      max-height: 70vh;
+      overflow-y: auto;
+}
+
+    .advice-container .result {
+      margin-bottom: 2em;
+      font-size: 1.5em;
+      color: red ;
+      font-weight: bold;
+}
+
+    .advice-container h3 {
+      color: #333;
+    }
+
+    .advice-container ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .advice-container li {
+      margin-bottom: 0.5em;
+      font-size: 1em;
+      color: #6b0808;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Diabetes Prediction</h1>
+    <h2>Enter Your Details Below</h2>
+
+    <form action="{{ url_for('predict_diabetes') }}" method="post">
+      <input type="number" name="pregnancies" placeholder="Number of Pregnancies" min="0" required value="{{ request.form.get('pregnancies') }}" />
+      <input type="number" name="glucose" placeholder="Glucose Level" min="0" max="200" required value="{{ request.form.get('glucose') }}" />
+      <input type="number" name="blood_pressure" placeholder="Blood Pressure" min="0" max="122" required value="{{ request.form.get('blood_pressure') }}" />
+      <input type="number" name="skin_thickness" placeholder="Skin Thickness" min="0" max="99" required value="{{ request.form.get('skin_thickness') }}" />
+      <input type="number" name="insulin" placeholder="Insulin Level" min="0" max="846" required value="{{ request.form.get('insulin') }}" />
+      <input type="number" name="bmi" placeholder="BMI" min="0" max="67.1" step="0.1" required value="{{ request.form.get('bmi') }}" />
+      <input type="number" name="dpf" placeholder="Diabetes Pedigree Function" min="0" max="2.42" step="0.01" required value="{{ request.form.get('dpf') }}" />
+      <input type="number" name="age" placeholder="Age" min="21" max="81" required value="{{ request.form.get('age') }}" />
+
+      <button type="submit">PREDICT</button>
+    </form>
+  </div>
+
+    <div class="advice-container">
+    <div class="result">
+      {{ prediction_text }}
+    </div>
+    {% if tips %}
+      <h3>Health Tips:</h3>
+      <ul>
+        {% for tip in tips %}
+          <li>{{ tip }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% if food_tips %}
+      <h3>Food Requirements:</h3>
+      <ul>
+        {% for food_tip in food_tips %}
+          <li>{{ food_tip }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% if exercise_tips %}
+    <h3>Exercise Advice:</h3>
+    <ul>
+      {% for exercise_tip in exercise_tips %}
+        <li>{{ exercise_tip }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  </div>
+</body>
+</html>
