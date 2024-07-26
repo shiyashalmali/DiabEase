@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Diabetes Prediction</title>
   <style>
-
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -25,9 +24,7 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
       max-width: 380px;
       width: 80%;
-
-      margin-right: 90px;
-}
+    }
 
     .container h1 {
       margin-bottom: 0.5em;
@@ -68,7 +65,7 @@
     .container .result {
       margin-top: 2em;
       font-size: 1.2em;
-      color: #2ecc71;
+      color: #8f0f0f;
     }
 
     .advice-container {
@@ -81,14 +78,13 @@
       max-width: 350px;
       max-height: 70vh;
       overflow-y: auto;
-}
+    }
 
     .advice-container .result {
-      margin-bottom: 2em;
       font-size: 1.5em;
-      color: red ;
+      color: #6b0808;
       font-weight: bold;
-}
+    }
 
     .advice-container h3 {
       color: #333;
@@ -104,9 +100,26 @@
       font-size: 1em;
       color: #6b0808;
     }
+
+    .nav {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-weight: bold;
+    }
+
+    .nav a {
+      margin: 0 10px;
+      color: #6b0808;
+      text-decoration: none;
+      font-size: 1.37em;
+    }
+
+    .nav a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
-
 <body>
   <div class="container">
     <h1>Diabetes Prediction</h1>
@@ -126,34 +139,40 @@
     </form>
   </div>
 
-    <div class="advice-container">
+  <div class="advice-container">
     <div class="result">
-      {{ prediction_text }}
+      {% if prediction_text %}
+        {{ prediction_text }}
+      {% else %}
+        RESULT
+      {% endif %}
     </div>
-    {% if tips %}
-      <h3>Health Tips:</h3>
-      <ul>
-        {% for tip in tips %}
-          <li>{{ tip }}</li>
-        {% endfor %}
-      </ul>
+    {% if prediction_text %}
+      {% if tips %}
+        <h3>Health Tips:</h3>
+        <ul>
+          {% for tip in tips %}
+            <li>{{ tip }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% if food_tips %}
+        <h3>Food Requirements:</h3>
+        <ul>
+          {% for food_tip in food_tips %}
+            <li>{{ food_tip }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% if exercise_tips %}
+        <h3>Exercise Advice:</h3>
+        <ul>
+          {% for exercise_tip in exercise_tips %}
+            <li>{{ exercise_tip }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     {% endif %}
-    {% if food_tips %}
-      <h3>Food Requirements:</h3>
-      <ul>
-        {% for food_tip in food_tips %}
-          <li>{{ food_tip }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% if exercise_tips %}
-    <h3>Exercise Advice:</h3>
-    <ul>
-      {% for exercise_tip in exercise_tips %}
-        <li>{{ exercise_tip }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
   </div>
 </body>
 </html>
