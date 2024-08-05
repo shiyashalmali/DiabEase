@@ -20,7 +20,7 @@ Prerequisites
 Usage
 
 1. Open the application in your web browser:
-    - Navigate to `http://localhost:5000` to access the DiabEase interface.
+    - Navigate to the DiabEase interface.
     
 2. Input Data:
     - Enter the required health data in the input fields.
