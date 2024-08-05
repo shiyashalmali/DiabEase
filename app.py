@@ -90,3 +90,5 @@ def predict_diabetes():
 
     return render_template('index.html', prediction_text=result, tips=advice, food_tips=food_advice, exercise_tips=exercise_advice)
 
+if __name__ == "__main__":
+    app.run(debug=True)
